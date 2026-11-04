@@ -11,6 +11,7 @@ dist/
 .npm-audit-cache/
 .npm-cache/
 coverage/
+supabase/.temp/
 *.log
 
 # Private financial material belongs in these ignored directories
@@ -28,6 +29,7 @@ backups/
 *.xls
 *.pdf
 *.sql
+!supabase/migrations/*.sql
 *.sqlite
 *.db
 *.pem

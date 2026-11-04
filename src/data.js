@@ -16,18 +16,22 @@ export async function saveTransaction(userId,values,id){
 }
 export async function deleteTransaction(userId,id){const {error}=await supabase.from('transactions').delete().eq('user_id',userId).eq('id',id).select('id').single();if(error)throw error;}
 export const receiptBucket=()=>supabase.storage.from('finflow-receipts');
-export async function saveReceipt(userId,transaction,file){
+export async function saveReceipt(userId,transaction,file,assertCurrent=()=>{}){
+ assertCurrent();
  const types={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','application/pdf':'pdf'};
  if(!types[file.type]||file.size===0||file.size>10*1024*1024)throw new Error('Choose a JPG, PNG, WEBP or PDF between 1 byte and 10 MB.');
  const path=`${userId}/${crypto.randomUUID()}.${types[file.type]}`;
  const {error:upError}=await receiptBucket().upload(path,file,{contentType:file.type,upsert:false});if(upError)throw upError;
+ assertCurrent();
  const {data,error}=await supabase.from('receipts').insert({user_id:userId,transaction_id:transaction.id,storage_path:path,merchant:transaction.merchant,receipt_date:transaction.transaction_date,total:transaction.amount,suggested_category:transaction.category,extraction_status:'verified'}).select().single();
  if(error){const {error:cleanup}=await receiptBucket().remove([path]);throw new Error(cleanup?'Receipt metadata failed and its private file needs cleanup.':'Receipt metadata failed; the uploaded file was removed.');}return data;
 }
 export async function signedReceiptUrl(path){const {data,error}=await receiptBucket().createSignedUrl(path,60);if(error)throw error;return data.signedUrl;}
-export async function removeReceipt(userId,receipt){
+export async function removeReceipt(userId,receipt,assertCurrent=()=>{}){
+ assertCurrent();
  if(!receipt.storage_path.startsWith(userId+'/'))throw new Error('Receipt does not belong to this account.');
  const {error:storageError}=await receiptBucket().remove([receipt.storage_path]);if(storageError)throw storageError;
+ assertCurrent();
  const {error}=await supabase.from('receipts').delete().eq('id',receipt.id).eq('user_id',userId).select('id').single();
  if(error)throw new Error('Image deleted, but metadata cleanup failed: '+error.message);
 }

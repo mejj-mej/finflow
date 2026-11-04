@@ -77,3 +77,29 @@ Income evidence upload remains unavailable. A future secure backend must handle 
 ## Before committing
 
 Read [the security policy](SECURITY.md) and [the pre-commit audit](docs/security-audit-2026-11-04.md). Only source, approved test fixtures and documentation belong in Git. Environment files, private receipts/exports, generated bundles, caches and browser artifacts are ignored. Vite validates its public environment before development or build starts. Never add a private provider key under VITE_.
+
+## Warranty Tracker
+
+Enable **Has warranty** in the optional **Warranty Information** section while uploading a receipt. Add one or several products, choose months or years, review the calculated expiry, and optionally enter an exact date from the official terms. The start date follows the purchase date until edited. Each product can have different terms.
+
+For an existing receipt, open **Receipts → Warranty Information**, then add or manage products in **Warranties**. Search by product, brand or merchant and filter by status or receipt. Expiring soon includes today through 30 days; expired means before today. A missing purchase date is shown as unrecorded and requires an explicit warranty start date. Warranties are independent of the finance reporting month.
+
+Warranty deletion requires confirmation and keeps the receipt and transaction. Receipt deletion warns that its linked warranties will also be deleted; the transaction remains. Receipt access still uses the private bucket and 60-second signed links. No AI extraction, reminders, notifications or claims are implemented.
+
+The approved migration is `supabase/migrations/20261104171802_add_warranty_tracker.sql`. It was validated in isolated PostgreSQL before being applied to the existing project. See the [reviewed schema](docs/warranty-tracker-proposal.md) and [implementation results, file list and limitations](docs/warranty-tracker-results.md).
+
+Verification commands:
+
+```sh
+npm.cmd test
+npm.cmd run build
+```
+
+The optional SQL verifier uses a pinned, isolated test engine, with no application dependency changes and no Supabase connection:
+
+```sh
+npm.cmd install --prefix .ui-verification/warranty-db --save-exact @electric-sql/pglite@0.5.15
+npm.cmd run test:db
+```
+
+For browser verification, start `npm.cmd run dev -- --port 5178` in another terminal, then run `npm.cmd run test:ui` and `npm.cmd run test:warranty-ui`. These scripts use an installed Microsoft Edge (or `FINFLOW_TEST_BROWSER`), isolated synthetic data, and blocked external HTTPS requests. They never exercise a real user's records. Screenshots and reports are written to the ignored `.ui-verification` directory in the parent workspace. A signed-in end-to-end test of the live project remains a separate verification step; isolated tests are not represented as live-user testing.

@@ -1,6 +1,6 @@
 {
   "name":"finflow-ai","version":"0.2.0","private":true,"type":"module",
-  "scripts":{"dev":"vite --host 127.0.0.1","build":"vite build","preview":"vite preview --host 127.0.0.1"},
+  "scripts":{"dev":"vite --host 127.0.0.1","build":"vite build","preview":"vite preview --host 127.0.0.1","test":"node --test","test:db":"node scripts/verify-warranty-db.mjs","test:ui":"node scripts/verify-ui.mjs --brief","test:warranty-ui":"node scripts/verify-warranty-ui.mjs"},
   "dependencies":{"@supabase/supabase-js":"^2.0.0","react":"^19.0.0","react-dom":"^19.0.0"},
   "devDependencies":{"@vitejs/plugin-react":"^4.7.0","vite":"^7.0.0"}
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { expenseCategories,incomeCategories,suggestExpenseCategory } from './transactions.js';
-export default function TransactionForm({form,setForm,onSubmit,busy,receipt=false,editing=false,onCancel}) {
+export default function TransactionForm({form,setForm,onSubmit,busy,receipt=false,editing=false,onCancel,children}) {
  const income=form.type==='Income'; const categories=income?incomeCategories:expenseCategories;
  const change=(key,value)=>setForm(f=>({...f,[key]:value}));
  return <form className="entry" onSubmit={onSubmit}>
@@ -13,6 +13,7 @@ export default function TransactionForm({form,setForm,onSubmit,busy,receipt=fals
  <label>Payment method (optional)<input maxLength={100} placeholder="Cash, bank transfer, e-wallet…" value={form.payment} onChange={e=>change('payment',e.target.value)}/></label>
  <label>Notes (optional)<textarea maxLength={5000} rows="3" value={form.note} onChange={e=>change('note',e.target.value)}/></label>
  {income&&<p className="muted">Record money actually received. Transfers between your own accounts are not income. For salary, enter net pay received. Income document processing is not available; unpaid invoices are not received income.</p>}
+ {children}
  {receipt&&<label className="verification"><input required type="checkbox"/> I reviewed the merchant, date, category and total against this receipt.</label>}
  <button className="primary" type="submit">{busy?'Saving…':editing?'Save changes':receipt?'Confirm & save expense':`Save ${income?'Income':'Expense'}`}</button>
  </fieldset><button type="button" onClick={onCancel} disabled={busy}>Cancel</button></form>;
