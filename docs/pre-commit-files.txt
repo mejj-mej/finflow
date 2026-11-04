@@ -1,0 +1,31 @@
+Reviewed repository root: finflow-ai-phase2/
+Verified public target: mejj-mej/-finflow
+Origin: https://github.com/mejj-mej/-finflow.git
+Authorized initial commit: feat: initialize FinFlow portfolio project
+Private environments, financial material, dependencies and generated artifacts are excluded.
+
+.env.example
+.gitignore
+README.md
+SECURITY.md
+docs/chromatic-redesign.md
+docs/pre-commit-files.txt
+docs/security-audit-2026-11-04.md
+index.html
+package-lock.json
+package.json
+scripts/fixtures/supabase-ui.js
+scripts/public-env.mjs
+scripts/verify-ui.mjs
+src/Icon.jsx
+src/TransactionForm.jsx
+src/data.js
+src/main.jsx
+src/phase2.css
+src/style.css
+src/supabase.js
+src/tokens.css
+src/transactions.js
+tests/public-env.test.js
+tests/transactions.test.js
+vite.config.js

@@ -1,0 +1,41 @@
+﻿node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.local
+
+# Local verification, audit output, caches and browser profiles
+.ui-verification/
+.security-audit/
+.npm-audit-cache/
+.npm-cache/
+coverage/
+*.log
+
+# Private financial material belongs in these ignored directories
+private-data/
+receipts/
+private-receipts/
+income-documents/
+uploads/
+exports/
+backups/
+
+# Financial exports, document copies, credentials and database dumps
+*.csv
+*.xlsx
+*.xls
+*.pdf
+*.sql
+*.sqlite
+*.db
+*.pem
+*.key
+*.p12
+*.pfx
+*receipt*.png
+*receipt*.jpg
+*receipt*.jpeg
+*receipt*.webp
+*receipt*.heic
