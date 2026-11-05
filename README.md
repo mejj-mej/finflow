@@ -1,6 +1,45 @@
-# FinFlow AI — Phase 2 (React + Vite + Supabase)
+# FinFlow — Personal Finance & Warranty Tracker
 
-A mobile-first PHP finance tracker connected to the private **FinFlow AI** Supabase project `syvvocztwlvdiyzgwtxq` in Singapore. The app has sign-in/sign-up, user-scoped cloud transactions, private receipt uploads, dashboard summaries, simple keyword-based categories, and CSV export.
+A portfolio project built with **React, Vite, and Supabase**. Track income and expenses, upload private receipts, review monthly finances, and manage product warranties linked to receipts. The interface uses FinFlow's Iris design system.
+
+> **Demo status:** Source code is available here, but there is **no hosted live demo** linked yet. To try the app, run it locally with a configured Supabase backend. Use fictional financial information and test receipts.
+
+## Quick start — try FinFlow locally
+
+**Requirements:** Node.js compatible with Vite 7, npm, and a Supabase project configured with the app's database schema, authentication, row-level security, and private receipt Storage policies. Cloning the repository alone does not provision that backend.
+
+```bash
+git clone https://github.com/mejj-mej/finflow.git
+cd finflow
+npm install
+```
+
+Copy `.env.example` to `.env.local`, then configure the frontend with **your own** Supabase project URL and **publishable** key:
+
+```dotenv
+VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
+```
+
+Never put a Supabase secret/service-role key or AI API secret into `VITE_` variables. Do not commit `.env.local`.
+
+```bash
+npm run dev
+```
+
+Open the local address printed by Vite (usually `http://localhost:5173`). Create a test account, add a fictional income or expense, upload a test receipt, and open **Warranties** to add a product, warranty duration, and expiration date.
+
+**Backend setup note:** The existing Supabase tables and Storage policies are required. The warranty schema migration is included at `supabase/migrations/20261104171802_add_warranty_tracker.sql`, but it depends on the existing `receipts` table. The repository is not advertised as a one-click standalone Supabase setup. See the security and migration documentation before applying database changes.
+
+## Explore the app
+
+- **Dashboard:** View monthly income, spending, net cash flow, and remaining budget.
+- **Transactions:** Add, edit, filter, and export finance records.
+- **Scan Receipt / Receipts:** Attach and privately access proof-of-purchase documents; receipt information is reviewed manually, not extracted by AI.
+- **Warranties:** Link multiple products to a receipt, calculate warranty expiry, use an official-date override, and filter active, expiring-soon, or expired coverage.
+
+**Automated checks:** `npm test` and `npm run build`. These do not replace testing with an authenticated Supabase account.
+
 
 ## Run locally in VS Code
 
