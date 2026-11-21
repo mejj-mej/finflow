@@ -8,8 +8,7 @@ _Last updated: 2026-11-21. Context system created after the Codex → Claude Cod
 
 | Item | State (2026-11-21) |
 |---|---|
-| Local branch | Feature branch `chore/handoff-db-auth-policy` @ `5d6ec50` (3 commits ahead of `main`), **not merged, not pushed** |
-| `main` | Untouched @ `69cb013`, in sync with `origin/main` |
+| Local branch | `main` @ `a15f39a`, in sync with `origin/main` (pushed 2026-11-21). Feature branch `chore/handoff-db-auth-policy` merged (fast-forward) and deleted. |
 | Remote | `origin` = github.com/mejj-mej/finflow |
 | Supabase | Project `syvvocztwlvdiyzgwtxq` **ACTIVE_HEALTHY** (restored by owner 2026-11-21); database reachable |
 | Tests | `npm test` 32/32 · `npm run test:db` 12/12 · `test:ui` pass · `test:warranty-ui` 13/13 · build passes · `npm audit` 0 vulnerabilities (as of 2026-11-21) |
@@ -23,7 +22,7 @@ _Last updated: 2026-11-21. Context system created after the Codex → Claude Cod
 
 ## Current work
 
-- [x] **Password policy (Option B + C docs) — done 2026-11-21, committed as `5d6ec50` on `chore/handoff-db-auth-policy` (not merged or pushed).** Owner set Supabase to min 10 chars + lowercase, uppercase and digits.
+- [x] **Password policy (Option B + C docs) — done 2026-11-21, committed as `5d6ec50`, merged into `main` and pushed to `origin/main`.** Owner set Supabase to min 10 chars + lowercase, uppercase and digits.
   - [x] `src/password.js` (single source of the rule) + sign-up validation in `src/main.jsx` (sign-in unchanged at 6)
   - [x] Live checklist hint on sign-up (`.password-rules` in `src/phase2.css`); Supabase `weak_password` mapped to a plain message
   - [x] `tests/password.test.js` (6 tests)
@@ -57,7 +56,8 @@ _Last updated: 2026-11-21. Context system created after the Codex → Claude Cod
 | 2026-11-21 | Base schema migration saved to the repo | md5 match, PGlite replay 15/15 |
 | 2026-11-21 | Revoked unneeded client privileges (Step 2) | PGlite replay 19/19 before apply; live grants re-queried after |
 | 2026-11-21 | Sign-up password policy + hint; SECURITY.md accepted limitation | `npm test` 32/32, `test:ui` pass, `test:warranty-ui` 13/13, fixture screenshots at 1440/375 |
-| 2026-11-21 | Committed on feature branch `chore/handoff-db-auth-policy` (**not merged into `main`, not pushed**): `fa513f6` docs: add Claude Code project context and progress tracker · `9fd2f57` chore(db): version base schema and revoke unneeded client privileges · `5d6ec50` feat(auth): enforce Supabase password policy on sign-up | `git log`; pre-commit review passed |
+| 2026-11-21 | Committed on feature branch `chore/handoff-db-auth-policy`: `fa513f6` docs: add Claude Code project context and progress tracker · `9fd2f57` chore(db): version base schema and revoke unneeded client privileges · `5d6ec50` feat(auth): enforce Supabase password policy on sign-up · `a15f39a` docs: update progress tracker | `git log`; pre-commit review passed |
+| 2026-11-21 | Fast-forward merged into `main`, pushed to `origin/main` (`69cb013..a15f39a`), feature branch deleted | `git ls-remote` shows `origin/main` = `a15f39a`; `npm test` 32/32 on `main` |
 
 ## Needs verification (once the project is restored)
 
@@ -128,3 +128,4 @@ _Last updated: 2026-11-21. Context system created after the Codex → Claude Cod
 - 2026-11-21: Owner confirmed the Supabase policy (min 10; lowercase, uppercase, digits). Added `src/password.js`, sign-up validation + live hint in `src/main.jsx`, `.password-rules` CSS, `tests/password.test.js`, and a SECURITY.md section. Checks: `npm test` 32/32, `test:db` 12/12, build passes, `test:ui` pass (6 widths, 0 runtime errors), `test:warranty-ui` 13/13, fixture screenshots confirm the hint at 1440/375 with no overflow and sign-in unchanged. Live sign-up not exercised. No Supabase changes. Not committed.
 - 2026-11-21: Pre-commit review: migrations byte-identical to live (all 3 md5s), diff clean, no secrets, tests 32/32 + 12/12 + replay 19/19, build passes, audit 0. Fixed stale doc statements in project-overview.md and architecture.md. Ready to commit pending owner approval.
 - 2026-11-21: Committed (owner-approved) on new branch `chore/handoff-db-auth-policy`: `fa513f6` (docs), `9fd2f57` (migrations), `5d6ec50` (auth password policy). The earlier "Not committed" notes in this log describe the state before these commits. **Not merged into `main`, not pushed.** Owner confirmed the Git author email is verified on GitHub. Leaked-password protection stays **Accepted** (not resolved); the live Supabase sign-up test is still pending.
+- 2026-11-21: Tracker commit `a15f39a` added. Branch fast-forward merged into `main` (no merge commit) and pushed (`69cb013..a15f39a`, no force). `origin/main` verified at `a15f39a`. Local branch `chore/handoff-db-auth-policy` deleted (it was never pushed). Earlier "not merged / not pushed" notes describe the state before this.
