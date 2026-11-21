@@ -25,6 +25,12 @@ React derives the current user from Supabase Auth. Frontend data calls include u
 
 Receipt access uses 60-second signed URLs. Signed URLs are temporary bearer access: do not log them, commit them, or send them to analytics. Authentication sessions are managed by supabase-js and persisted in browser storage; no independent password or session-token store is implemented in the app. React text escaping must be preserved; never render untrusted receipt/OCR content through raw HTML.
 
+## Password policy and accepted limitation
+
+Supabase Auth enforces the password policy server-side (configured in the dashboard, 2026-11-21): **minimum 10 characters, with at least one lowercase letter, one uppercase letter and one digit**. The sign-up form mirrors this rule in `src/password.js` so users see the requirements and a live checklist before submitting, and Supabase's `weak_password` error is shown in plain language. The frontend copy is a convenience; Supabase is the enforcement point. If the dashboard policy changes, update `src/password.js` and `tests/password.test.js` in the same change. Sign-in still accepts shorter passwords so accounts created under the earlier 6-character minimum keep working.
+
+**Accepted limitation: leaked-password protection is disabled.** Supabase's check against known breached passwords (HaveIBeenPwned) is available only on the Pro plan and above. FinFlow intentionally stays on the Free plan as a portfolio project, so this protection is **not enabled**, and the Supabase security advisor will keep reporting the `auth_leaked_password_protection` warning. This is a known, accepted risk, **not a resolved issue**. The stronger password rules above reduce weak-password risk but do not detect breached passwords. Revisit this before onboarding real users or moving to a paid plan.
+
 ## Future AI receipt recognition — architecture only
 
 React frontend -> authenticated backend function -> AI provider.

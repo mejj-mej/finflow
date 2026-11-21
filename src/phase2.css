@@ -6,6 +6,11 @@
 .authbox .entry { margin-top: 28px; }
 .authbox .textbutton { margin-block: 16px; }
 .autherror { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--surface-danger); border: 1px solid var(--border-soft); padding: 16px; border-radius: 14px; color: var(--text-danger); font-size: var(--type-body); overflow-wrap: anywhere; }
+.password-rules { margin-top: calc(var(--space-2) * -1); padding: var(--space-3) var(--space-4); border: 1px solid var(--border-soft); border-radius: var(--radius-field); background: var(--surface-subtle); color: var(--text-muted); font-size: var(--type-label); line-height: 1.6; }
+.password-rules p { margin: 0 0 var(--space-2); }
+.password-rules ul { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.password-rules li { display: flex; gap: var(--space-2); align-items: baseline; }
+.password-rules li.met { color: var(--text-positive); }
 .manualpanel { max-width: 760px; }
 .entry, .formfields { display: grid; gap: 20px; }
 .formfields { border: 0; padding: 0; margin: 0; min-width: 0; }
